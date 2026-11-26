@@ -270,11 +270,12 @@ function evaluarProductoAPI(prod) {
     } else {
         mostrarResultado(
             nombre,
-            "apto",
+            "apto", 
             "Apto para Dieta Ital",
             "Producto natural de origen vegetal, libre de aditivos industriales y ultraprocesamiento."
         );
     }
+    
 }
 
 function mostrarResultado(nombre, claseEstado, etiqueta, razon) {
