@@ -1,0 +1,363 @@
+/* =====================================================
+   VARIABLES Y PALETA ITAL / RASTAFARI ORGÁNICA
+===================================================== */
+:root {
+    --bg-earth: #161410;         /* Tierra oscura profunda */
+    --surface-wood: #221f19;     /* Corteza / madera oscura */
+    --surface-card: #2b2720;     /* Superficie de tarjetas */
+    --text-sand: #f2ede4;        /* Arena natural */
+    --text-muted: #b8b0a2;       /* Piedra suave */
+    --rasta-green: #2d7a47;      /* Verde selva / vida */
+    --rasta-gold: #e0a82e;       /* Dorado solar / energía */
+    --rasta-red: #b83b2b;        /* Terracota / tierra roja */
+    --border-subtle: #3d372d;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-earth);
+    color: var(--text-sand);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* =====================================================
+   CABECERA Y MENÚ
+===================================================== */
+.site-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+    border-bottom: 3px solid transparent;
+    border-image: linear-gradient(to right, var(--rasta-green), var(--rasta-gold), var(--rasta-red)) 1;
+    gap: 1rem;
+}
+
+.ital-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--rasta-gold);
+    margin-bottom: 0.25rem;
+}
+
+.site-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.main-menu {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.menu-item a {
+    color: var(--text-sand);
+    text-decoration: none;
+    font-weight: 500;
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.menu-item a:hover {
+    color: var(--rasta-gold);
+    border-bottom-color: var(--rasta-gold);
+}
+
+/* =====================================================
+   SECCIONES GENERALES
+===================================================== */
+section {
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.section-header {
+    margin-bottom: 1.75rem;
+}
+
+.section-header h2 {
+    font-size: 1.6rem;
+    color: var(--rasta-gold);
+    margin-bottom: 0.5rem;
+}
+
+.section-header p {
+    color: var(--text-muted);
+}
+
+.section-content p {
+    margin-bottom: 1rem;
+    max-width: 75ch;
+}
+
+/* =====================================================
+   ESCÁNER Y BUSCADOR DE PRODUCTOS
+===================================================== */
+.scanner-controls {
+    background: var(--surface-wood);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-subtle);
+}
+
+.search-bar-group {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.search-bar-group input {
+    flex: 1;
+    min-width: 240px;
+    padding: 0.85rem 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-earth);
+    color: var(--text-sand);
+    font-size: 1rem;
+}
+
+.search-bar-group input:focus {
+    outline: 2px solid var(--rasta-gold);
+}
+
+button {
+    cursor: pointer;
+    padding: 0.85rem 1.25rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: opacity 0.2s, transform 0.1s;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.btn-primary {
+    background-color: var(--rasta-green);
+    color: #fff;
+}
+
+.btn-secondary {
+    background-color: var(--rasta-gold);
+    color: #161410;
+}
+
+.btn-danger {
+    background-color: var(--rasta-red);
+    color: #fff;
+    margin-top: 1rem;
+}
+
+.camera-wrapper {
+    margin-top: 1.5rem;
+    text-align: center;
+    background: #000;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+#qr-reader {
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.result-panel {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 6px solid var(--rasta-gold);
+    background: var(--surface-card);
+}
+
+.result-panel.apto {
+    border-left-color: var(--rasta-green);
+}
+
+.result-panel.no-apto {
+    border-left-color: var(--rasta-red);
+}
+
+.result-panel.precaucion {
+    border-left-color: var(--rasta-gold);
+}
+
+.status-tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.apto .status-tag { background: var(--rasta-green); color: #fff; }
+.no-apto .status-tag { background: var(--rasta-red); color: #fff; }
+.precaucion .status-tag { background: var(--rasta-gold); color: #161410; }
+
+/* =====================================================
+   RECETAS Y COMPARACIÓN
+===================================================== */
+.filter-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background: var(--surface-card);
+    color: var(--text-sand);
+    border: 1px solid var(--border-subtle);
+    padding: 0.5rem 1rem;
+}
+
+.filter-btn.active {
+    background: var(--rasta-gold);
+    color: #161410;
+    border-color: var(--rasta-gold);
+}
+
+.recipes-grid,
+.comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.recipe-card,
+.info-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.recipe-card h3,
+.info-card h3 {
+    color: var(--text-sand);
+    margin-bottom: 0.5rem;
+}
+
+.recipe-meta {
+    font-size: 0.85rem;
+    color: var(--rasta-gold);
+    margin-bottom: 0.75rem;
+}
+
+.recipe-card p,
+.info-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+}
+
+/* =====================================================
+   MODAL Y PIE DE PÁGINA
+===================================================== */
+.hidden {
+    display: none !important;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--surface-wood);
+    border: 1px solid var(--rasta-gold);
+    border-radius: 10px;
+    max-width: 600px;
+    width: 100%;
+    padding: 2rem;
+    position: relative;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    color: var(--text-sand);
+    font-size: 1.75rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.modal-content ul,
+.modal-content ol {
+    margin: 0.75rem 0 1.25rem 1.5rem;
+    color: var(--text-muted);
+}
+
+.site-footer {
+    padding: 3rem 0 2rem;
+    color: var(--text-muted);
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-content h2,
+.footer-content h3 {
+    color: var(--text-sand);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: var(--rasta-gold);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+    font-size: 0.85rem;
+}

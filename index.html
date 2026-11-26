@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ital Livity — Nutrición Viva y Conexión con la Tierra</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Librería ligera para lectura de códigos de barras con cámara -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- =====================================================
+         CABECERA
+    ====================================================== -->
+    <header class="site-header">
+        <div class="brand-title">
+            <span class="ital-badge">Livity &amp; Earth</span>
+            <h1>Ital Roots</h1>
+        </div>
+
+        <!-- =====================================================
+             MENÚ PRINCIPAL
+        ====================================================== -->
+        <nav class="main-navigation" aria-label="Navegación principal">
+            <ul class="main-menu">
+                <li class="menu-item"><a href="#filosofia">Filosofía Ital</a></li>
+                <li class="menu-item"><a href="#verificador">Escáner &amp; Buscador</a></li>
+                <li class="menu-item"><a href="#recetas">Recetas Vivas</a></li>
+                <li class="menu-item"><a href="#veganismo">Ital vs. Veganismo</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- =====================================================
+         CONTENIDO PRINCIPAL
+    ====================================================== -->
+    <main class="main-content" id="inicio">
+
+        <!-- =================================================
+             FILOSOFÍA ITAL
+        ================================================== -->
+        <section class="course-description" id="filosofia">
+            <header class="section-header">
+                <h2>Alimentos de la Tierra para el Espíritu</h2>
+            </header>
+
+            <div class="section-content">
+                <p>
+                    La alimentación <strong>Ital</strong> nace de la palabra <em>vital</em>. Es el compromiso
+                    de nutrir el cuerpo como un templo sagrado mediante alimentos puros, naturales y
+                    nacidos directamente de la tierra, en armonía con las vibraciones del universo.
+                </p>
+                <p>
+                    Evitamos todo lo que haya sido alterado químicamente, enlatado, refinado o cargado de
+                    sal industrial, priorizando frutos frescos, raíces, hierbas y semillas llenas de energía vital.
+                </p>
+            </div>
+        </section>
+
+        <!-- =================================================
+             VERIFICADOR DE PRODUCTOS Y ESCÁNER DE BARRAS
+        ================================================== -->
+        <section class="scanner-section" id="verificador">
+            <header class="section-header">
+                <h2>Verificador de Pureza Ital</h2>
+                <p>
+                    Escanea el código de barras de un producto o escribe su nombre/código para verificar si respeta los principios naturales de la dieta Ital.
+                </p>
+            </header>
+
+            <div class="scanner-controls">
+                <div class="search-bar-group">
+                    <input type="text" id="product-input" placeholder="Ej. Quinua real, Refresco de cola, Lentejas, 777123456..." aria-label="Buscar producto o código">
+                    <button type="button" id="btn-search" class="btn-primary">Verificar</button>
+                    <button type="button" id="btn-toggle-camera" class="btn-secondary">📷 Escanear Código</button>
+                </div>
+
+                <!-- Contenedor oculto para la cámara -->
+                <div id="camera-wrapper" class="camera-wrapper hidden">
+                    <div id="qr-reader"></div>
+                    <button type="button" id="btn-stop-camera" class="btn-danger">Cerrar Cámara</button>
+                </div>
+            </div>
+
+            <!-- Panel dinámico de resultados -->
+            <div id="verification-result" class="result-panel hidden" aria-live="polite">
+                <!-- Se llena con JavaScript -->
+            </div>
+        </section>
+
+        <!-- =================================================
+             RECETARIO ITAL
+        ================================================== -->
+        <section class="recipes-section" id="recetas">
+            <header class="section-header">
+                <h2>Recetas de la Tierra</h2>
+                <p>Selecciona una preparación para conectar con sus ingredientes y energía.</p>
+
+                <div class="filter-buttons">
+                    <button type="button" class="filter-btn active" data-category="todas">Todas</button>
+                    <button type="button" class="filter-btn" data-category="raices">Raíces y Guisos</button>
+                    <button type="button" class="filter-btn" data-category="crudo">Crudo &amp; Solar</button>
+                    <button type="button" class="filter-btn" data-category="infusiones">Elixires</button>
+                </div>
+            </header>
+
+            <div class="recipes-grid" id="recipes-grid">
+                <!-- Tarjetas generadas dinámicamente desde script.js -->
+            </div>
+        </section>
+
+        <!-- =================================================
+             APARTADO: ITAL Y VEGANISMO
+        ================================================== -->
+        <section class="vegan-comparison" id="veganismo">
+            <header class="section-header">
+                <h2>Ital y Veganismo: Raíces Compartidas</h2>
+            </header>
+
+            <div class="comparison-grid">
+                <article class="info-card">
+                    <h3>Lo que nos une</h3>
+                    <p>
+                        Al igual que el veganismo ético, la dieta Ital rechaza el consumo de carne,
+                        lácteos, huevos y cualquier producto derivado de la explotación animal, honrando
+                        todas las formas de vida en la creación.
+                    </p>
+                </article>
+
+                <article class="info-card">
+                    <h3>Lo que hace único al Ital</h3>
+                    <p>
+                        Un producto puede ser 100% vegano pero ultraprocesado (como frituras industriales,
+                        azúcares refinados o sustitutos artificiales). El camino Ital va más allá:
+                        exige que el alimento esté vivo, libre de químicos, sin sal refinada y lo más cercano
+                        posible a su estado natural en la tierra.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =====================================================
+         PIE DE PÁGINA
+    ====================================================== -->
+    <footer class="site-footer">
+        <div class="footer-bottom">
+            <p>&copy; 2026 Ital Roots </p>
+        </div>
+    </footer>
+
+</div>
+
+<!-- Modal para ver detalle de receta -->
+<div id="recipe-modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-content">
+        <button type="button" id="close-modal" class="close-modal" aria-label="Cerrar receta">&times;</button>
+        <div id="modal-body"></div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
