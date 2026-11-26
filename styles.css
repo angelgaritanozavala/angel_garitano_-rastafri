@@ -179,9 +179,11 @@ button:hover {
 }
 
 #qr-reader {
-    max-width: 450px;
+    width: 100%;
+    max-width: 500px;
     margin: 0 auto;
 }
+
 
 .result-panel {
     margin-top: 1.5rem;
@@ -360,4 +362,7 @@ button:hover {
     padding-top: 1.5rem;
     border-top: 1px solid var(--border-subtle);
     font-size: 0.85rem;
+}
+.hidden {
+    display: none !important;
 }

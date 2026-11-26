@@ -291,48 +291,93 @@ btnSearch.addEventListener("click", () => verificarProducto(productInput.value))
 productInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") verificarProducto(productInput.value);
 });
-
 // =====================================================
-// 4. ESCÁNER DE CÓDIGO DE BARRAS CON CÁMARA
+// 4. ESCÁNER DE CÓDIGO DE BARRAS NATIVO (CERO LIBRERÍAS)
 // =====================================================
 const btnToggleCamera = document.getElementById("btn-toggle-camera");
 const btnStopCamera = document.getElementById("btn-stop-camera");
 const cameraWrapper = document.getElementById("camera-wrapper");
-let html5QrcodeScanner = null;
+const qrReaderDiv = document.getElementById("qr-reader");
 
-btnToggleCamera.addEventListener("click", () => {
-    cameraWrapper.classList.remove("hidden");
-    if (!html5QrcodeScanner) {
-        html5QrcodeScanner = new Html5Qrcode("qr-reader");
-    }
-
-    html5QrcodeScanner.start(
-        { facingMode: "environment" },
-        { fps: 10, qrbox: { width: 250, height: 150 } },
-        (decodedText) => {
-            productInput.value = decodedText;
-            detenerCamara();
-            verificarProducto(decodedText);
-        },
-        () => { /* Ignorar lecturas vacías frame a frame */ }
-    ).catch(err => {
-        cameraWrapper.classList.add("hidden");
-        alert("No se pudo acceder a la cámara. Verifica los permisos del navegador o usa HTTPS/localhost.");
-        console.error(err);
-    });
-});
+let mediaStream = null;
+let scanInterval = null;
 
 function detenerCamara() {
-    if (html5QrcodeScanner && html5QrcodeScanner.isScanning) {
-        html5QrcodeScanner.stop().then(() => {
-            cameraWrapper.classList.add("hidden");
-        }).catch(err => console.error(err));
-    } else {
-        cameraWrapper.classList.add("hidden");
+    if (scanInterval) {
+        clearInterval(scanInterval);
+        scanInterval = null;
     }
+    if (mediaStream) {
+        mediaStream.getTracks().forEach(track => track.stop());
+        mediaStream = null;
+    }
+    qrReaderDiv.innerHTML = "";
+    cameraWrapper.classList.add("hidden");
+    cameraWrapper.style.display = "none";
 }
 
 btnStopCamera.addEventListener("click", detenerCamara);
 
-// Inicializar recetas al cargar
-renderizarRecetas();
+btnToggleCamera.addEventListener("click", async () => {
+    if (mediaStream) return;
+
+    cameraWrapper.classList.remove("hidden");
+    cameraWrapper.style.display = "block";
+
+    qrReaderDiv.innerHTML = `
+        <video id="native-video" style="width: 100%; max-height: 320px; object-fit: cover; border-radius: 8px; background: #000;" autoplay muted playsinline></video>
+        <p style="font-size: 0.85rem; margin-top: 6px; color: #555;">Apunta el código de barras bien iluminado frente a la cámara</p>
+    `;
+
+    const video = document.getElementById("native-video");
+
+    try {
+        // 1. Abrir cámara en alta definición (1280x720) para que las barras se vean nítidas
+        mediaStream = await navigator.mediaDevices.getUserMedia({
+            video: {
+                facingMode: "environment",
+                width: { ideal: 1280 },
+                height: { ideal: 720 }
+            },
+            audio: false
+        });
+
+        video.srcObject = mediaStream;
+        await video.play();
+
+        // 2. Verificar soporte nativo del navegador
+        if (!("BarcodeDetector" in window)) {
+            alert("Tu navegador no soporta el lector nativo. Usa Google Chrome o Microsoft Edge.");
+            detenerCamara();
+            return;
+        }
+
+        const detector = new BarcodeDetector({
+            formats: ["ean_13", "ean_8", "upc_a", "upc_e", "code_128", "qr_code"]
+        });
+
+        // 3. Escanear cada 250ms
+        scanInterval = setInterval(async () => {
+            if (!mediaStream || video.readyState !== video.HAVE_ENOUGH_DATA) return;
+
+            try {
+                const barcodes = await detector.detect(video);
+                if (barcodes.length > 0) {
+                    const codigoLeido = barcodes[0].rawValue;
+                    if (navigator.vibrate) navigator.vibrate(100);
+
+                    productInput.value = codigoLeido;
+                    detenerCamara();
+                    verificarProducto(codigoLeido);
+                }
+            } catch (e) {
+                // Ignorar error de frame individual
+            }
+        }, 250);
+
+    } catch (err) {
+        detenerCamara();
+        alert("No se pudo abrir la cámara: " + err.message);
+        console.error(err);
+    }
+});
